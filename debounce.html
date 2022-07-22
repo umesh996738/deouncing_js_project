@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounceing</title>
+    <style type="text/css">
+        *{
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            font-family: "Helvetica Neue",Helvetica,Arial, sans-serif" ;      
+        }
+        body{
+            background-color: black;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            display:flex;
+            flex-direction: co;
+        }
+        .container {
+            width: 85%;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            display:flex;
+            flex-direction: column;
+            background: white;
+            margin:80px 40px 180px 40px;
+            border-radius: 10px;
+            
+
+        }
+        
+        .input-d{
+            box-sizing: border-box;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 2rem;
+            border: 3px solid rgb(17, 1, 1);
+
+
+        }
+    </style>
+</head>
+<body>
+    <div class = "container">
+        <h1>ENTER YOUR NAME :</h1>
+        <input type = "text" class = "input-d" placeholder = "Enter name"/>
+        <h1 class = "input1">Name:<span class ="name1"> </span> </h1>
+    </div>
+    <script>
+        function deounce(fun,dealy){
+            let timeOutId;
+            return function(...args){
+                if(timeOutId){
+                    clearTimeout(timeOutId);//clearTimeout
+                }
+                timeOutId = setTimeout(() =>{
+                    fun.call(this,...args);
+                },dealy);
+
+            }
+
+        }
+        const inputName = document.querySelector('.input-d');
+        const name1 = document.querySelector(".name1");
+        const inputName1 = (e)=>{
+            name1.textContent = e.target.value;
+            console.log(e.target.value); 
+
+        };
+        const deouncingFind = deounce(inputName1,500);
+        inputName.addEventListener('input', deouncingFind);
+    </script>
+    
+</body>
+</html>
